@@ -10,9 +10,8 @@ are renounced under the terms of
 the Open Web Foundation CLA 1.0
 (http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0)
 '''
-from __future__ import division
+#from __future__ import division # 
 import random
-import functools
 
 # 12th Mersenne Prime
 # (for this application we want a known prime number
@@ -23,8 +22,11 @@ import functools
 _PRIME = 2**127 - 1
 # 13th Mersenne Prime is 2**521 - 1
 
-_rint = functools.partial(random.SystemRandom().randint, 0)
 
+#import functools
+_rint = lambda y : random.randint(0, y/2**111) # ToDO: Fix the "non-integer stop for randrange()" error, meaning the upper bound supplied( bellow) is too high for the numeric format.
+  #                                   ^ ToDo: Repair!
+#todo reimpl following via lambdas as https://stackoverflow.com/questions/3252228/python-why-is-functools-partial-necessary: functools.partial(random.SystemRandom().randint, 0)
 
 def _eval_at(poly, x, prime):
     'evaluate polynomial (coefficient tuple) at x'
@@ -121,7 +123,7 @@ def test():
             secret, shares = make_random_shares(i, j)
             assert recover_secret(random.sample(shares, i)) == secret
             assert recover_secret(shares) == secret
-    import timeit
-    return timeit.timeit(
-        lambda: recover_secret(make_random_shares(4, 8)[1]),
-        number=1000) * 1000
+    # Not implemented in Skulpt://
+    #import timeit    return timeit.timeit(         lambda: recover_secret(make_random_shares(4, 8)[1]), number=1000) * 1000
+    return shares
+print(test())
