@@ -1,10 +1,14 @@
+Key sharing code for web-browser clients as possible
+''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+We'll try to push the limits on Skulpt engine which compiles Python to browser JS and modify the forked code( linked bellow) to work in there.
+
+Final aspiration is to make a clear web-app for sharing of cryptographic seed phrases of [BIP-39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki).
+
 shamir
 ''''''
 
-Fast, secure, pure python implementation of Shamir's secret sharing algorithm.
-
-https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing
-
+Using the "Fast, secure, pure python implementation of Shamir's secret sharing algo" from https://github.com/kurtbrose/shamir.
 
 why to use it
 '''''''''''''
