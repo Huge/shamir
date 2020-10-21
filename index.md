@@ -1,12 +1,30 @@
 ## Welcome to GitHub Pages
 
-You can use the [editor on GitHub](https://github.com/Huge/shamir/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Current path of implementation through Skulpt hangs on [this issue](https://github.com/Huge/shamir/edit/gh-pages/index.md):
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+I've been fighting a relevant issue with huge numbers, where the upper bound is `2**127 - 1`, which I'm able to `print` without a problem.
+I asume my code fails in https://github.com/skulpt/skulpt/blob/b763d3e24860a8e3d303878e0035d8bad9f55578/src/lib/random.js#L268 .
+I have only subtle awareness of Javascript, but I'd like to help in making this improvement/PR..is it the right way to just wrap all the calculations there into `BigInt()` or do we need to assemble the larger numbers from the 32b integers?
 
-### Markdown
+>> native BigInt is [not recommended yet](https://github.com/skulpt/skulpt/issues/1211#issuecomment-713691884) in the codebase as it's not backwards compatible for older browsers. (I think it was only added to safari in the last couple of months)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
++ Examples in https://github.com/skulpt/skulpt/blob/master/src/lib/math.js#L226 where large numbers are allowed into factorial or gcd and are handled by the ~big_integer interface.
+
+>> hoping that we can use the JSBI library at some point which has a nice functional approach to handling BigInt, here's an example of math.js function with a version of the JSBI library
+https://github.com/s-cork/skulpt/blob/prototypical_getsets_mappingproxy/src/lib/math.js#L226
+
+### Goals yet:
+
++ Integrate RNG from https://www.bitaddress.org or https://bitcoinpaperwallet.com/bitcoinpaperwallet/generate-wallet.html 
+  - Generate seeds and shards( =sharing pieces) of them
++ Allow switching the hex, base64, BINARY, from which I can assemble backups
++ Naive sharing for 2/2, 2/3 and X/4 maybe
+
+---- 
+
+### Reference on MD syntax..:
+
+Markdown is easy. It includes conventions for:
 
 ```markdown
 Syntax highlighted code block
@@ -28,10 +46,5 @@ Syntax highlighted code block
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Jekyll Themes
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Huge/shamir/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+GitHub Pages uses [Jekyll](https://jekyllrb.com/) to assemble these pages. gh/contact could support..
